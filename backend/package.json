@@ -1,12 +1,10 @@
-
 {
   "name": "backend",
   "version": "1.0.0",
   "description": "",
   "scripts": {
     "dev": "nodemon src/server.js",
-    "start" : "nodemon src/server.js"
-    
+    "start": "node src/server.js"
   },
   "type": "module",
   "keywords": [],
@@ -14,6 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "chatify": "file:..",
     "cookie-parser": "^1.4.7",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",

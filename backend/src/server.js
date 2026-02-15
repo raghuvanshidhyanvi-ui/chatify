@@ -1,5 +1,7 @@
 import express from "express";
 import  dotenv from 'dotenv';
+import authRoutes from "./routes/auth.route.js"
+import path from "path";
 
 dotenv.config();
 
@@ -7,20 +9,22 @@ const app = express();
 
 const PORT = process.env.PORT || 3000;
 
-
-app.get("/api/auth/signup" , (req , res)=>{
-    res.send('signup endpoint');
-})
-
-app.get("/api/auth/login" , (req , res)=>{
-    res.send('login endpoint');
-})
-
-app.get("/api/auth/logout" , (req , res)=>{
-    res.send('logout endpoint')
-})
+const __dirname = path.resolve();
 
 
 
 
-app.listen(3000, ()=>console.log(`Server running on port ${PORT}`));
+app.use("/api/auth" , authRoutes)
+
+//make ready for deployment
+if(process.env.NODE_ENV === "production" ){
+    app.use(express.static(path.join(__dirname , "../frontend/dist")))
+
+    app.get("*" , (req , res)=>{
+        res.sendFile(path.join(__dirname , "../frontend" , "dist" , "index.html"))
+    })
+}
+
+
+
+app.listen(PORT, ()=>console.log(`Server running on port ${PORT}`));
